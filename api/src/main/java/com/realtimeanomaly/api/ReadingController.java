@@ -12,8 +12,8 @@ public class ReadingController {
     public void postReading(@RequestBody Reading reading) {
         
         System.out.println("Machine: " + reading.getMachineId()
-            + "Metric: " + reading.getMetric()
-            + "Value: " + reading.getValue());
+            + " Metric: " + reading.getMetric()
+            + " Value: " + reading.getValue());
     }
     
 

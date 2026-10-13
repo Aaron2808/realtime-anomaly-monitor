@@ -2,23 +2,9 @@ import random
 import time
 import json
 from datetime import datetime, timezone
+from pathlib import Path
 
-#set_temperature = 30
-#temp = 28
-
-while False:
-
-    change = random.uniform(-0.5, 0.5)
-    temp = temp + change
-
-    correction = (set_temperature - temp) * 0.1
-
-    temp = temp + correction
-
-    print(round(temp,2))
-
-
-    time.sleep(2)
+import requests
 
 
 def next_reading(current, operating_min, operating_max, noise=0.1):
@@ -32,14 +18,9 @@ def next_reading(current, operating_min, operating_max, noise=0.1):
     return current
 
 
-while False:
-    temp = next_reading(temp, 20, 40)
+CONFIG_PATH = Path(__file__).parent / "config.json"
 
-    print(round(temp,2))
-    time.sleep(1)
-
-
-with open('simulator/config.json') as f:
+with open(CONFIG_PATH) as f:
     equipment_values = json.load(f)
 
   
@@ -63,6 +44,8 @@ while True:
                }
            
             print(json.dumps(reading))
+
+            requests.post("http://localhost:8080/readings", json=reading)
 
     
   
