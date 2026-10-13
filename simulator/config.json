@@ -1,20 +1,17 @@
 { "air_compressor" : {
         "vibration" : {
-            "current" : 5,
             "min" : 0,
             "max" : 10, 
             "noise" : 0.2
         },
 
         "temp":{
-            "current" : 30,
             "min" : 20,
             "max" : 40, 
             "noise" : 1
         },
 
         "pressure": {
-            "current" : 60,
             "min" : 0,
             "max" : 120,
             "noise" : 3
@@ -23,21 +20,18 @@
 
     "welder" : {
          "vibration" : {
-                "current" : 5,
                 "min" : 0,
                 "max" : 10,
                 "noise" : 0.2
             },
         
             "temp":{
-                "current" : 30,
                 "min" : 20,
                 "max" : 40, 
                 "noise" : 1
             },
                 
             "pressure": {
-                "current" : 60,
                 "min" : 0,
                 "max" : 120,
                 "noise" : 3

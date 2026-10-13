@@ -45,7 +45,7 @@ with open('simulator/config.json') as f:
   
 for name, metrics in equipment_values.items():
     for metric, value in metrics.items():
-        print(f"Name: {metric} Value: {value}")
+        value['current'] = (value['max'] + value['min'])/2
 
 
 while True:
