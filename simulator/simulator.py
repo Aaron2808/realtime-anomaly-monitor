@@ -1,9 +1,10 @@
 import random
 import time
+import json
+from datetime import datetime, timezone
 
-
-set_temperature = 30
-temp = 28
+#set_temperature = 30
+#temp = 28
 
 while False:
 
@@ -38,66 +39,31 @@ while False:
     time.sleep(1)
 
 
-equipment_values = {
+with open('simulator/config.json') as f:
+    equipment_values = json.load(f)
 
-    "air_compressor" : {
-        "vibration" : {
-            "current" : 5,
-            "min" : 0,
-            "max" : 10, 
-            "noise" : 0.2,
-        },
-
-        "temp":{
-            "current" : 30,
-            "min" : 20,
-            "max" : 40, 
-            "noise" : 1,
-        },
-
-        "pressure": {
-            "current" : 60,
-            "min" : 0,
-            "max" : 120,
-            "noise" : 5,
-        },
-    },
-
-    "welder" : {
-         "vibration" : {
-                "current" : 5,
-                "min" : 0,
-                "max" : 10,
-                "noise" : 0.2, 
-            },
-        
-            "temp":{
-                "current" : 30,
-                "min" : 20,
-                "max" : 40, 
-                "noise" : 1,
-            },
-                
-            "pressure": {
-                "current" : 60,
-                "min" : 0,
-                "max" : 120,
-                "noise" : 5,
-            },
-    }
-}
-
-
+  
 for name, metrics in equipment_values.items():
     for metric, value in metrics.items():
         print(f"Name: {metric} Value: {value}")
 
 
 while True:
+    currentTime = datetime.now(timezone.utc).isoformat()
+
     for name, metrics in equipment_values.items():
         for metric, value in metrics.items():
             value["current"] = next_reading(value["current"], value["min"], value["max"], value["noise"])
 
-            print(f"Name: {name} Metric: {metric} Value: {round(value['current'],2)}")
+            reading = {
+                   "timestamp" : currentTime,
+                   "machine_id" : name,
+                   "metric" : metric,
+                   "value" : round(value['current'],2)
+               }
+           
+            print(json.dumps(reading))
 
+    
+  
     time.sleep(1)
